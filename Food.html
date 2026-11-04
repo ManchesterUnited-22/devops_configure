@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Món ăn</title>
+<link rel="stylesheet" href="/Managing_Restaurant/Source/Food.css">
+<link rel="stylesheet" href="/Managing_Restaurant/Source/Header.css">
+<link rel="stylesheet" href="/Managing_Restaurant/Source/Footer.css">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <div class="logo">FOOD<span>&OUR</span></div>
+      <div class="right-box">
+        <span class="link" onclick="location.href='Giohang.html';" style="cursor:pointer;">🛒 MUA NHỮNG THỨ GÌ!!!</span>
+      </div>
+    </div>
+
+    <nav class="menu-bar">
+      <a href="Home.html">TRANG CHỦ</a>
+      <a href="Food.html">MÓN ĂN</a>
+      <a href="Drink.html">NƯỚC UỐNG</a>
+      <a href="Contact.html">LIÊN HỆ & Ý KIẾN</a>
+
+    </nav>
+  </header>
+
+
+<section class="food-buttons" id="foodButtons">
+  <button class="food-btn" data-target="lau"><img src="/Managing_Restaurant/Img/Lẩu.webp"><span>Lẩu</span></button>
+  <button class="food-btn" data-target="bo"><img src="/Managing_Restaurant/Img/Bò.png"><span>Bò</span></button>
+  <button class="food-btn" data-target="heo"><img src="/Managing_Restaurant/Img/Heo.jpg"><span>Heo</span></button>
+  <button class="food-btn" data-target="haisan"><img src="/Managing_Restaurant/Img/Haisan.jpg"><span>Hải sản</span></button>
+  <button class="food-btn" data-target="raunam"><img src="/Managing_Restaurant/Img/RauNam.jpg"><span>Rau & Nấm</span></button>
+  <button class="food-btn" data-target="monkhac"><img src="/Managing_Restaurant/Img/Monkhac.jpg"><span>Món khác</span></button>
+</section>
+
+<main class="food-content">
+
+<fieldset id="lau">
+  <legend>Lẩu</legend>
+  <div class="food-grid">
+    <!--  -->
+    <div class="food-item">
+      <img src="/Managing_Restaurant/Img/Laubo.webp">
+      <h4>Lẩu Bò</h4>
+      <p>155.000đ</p>
+      <button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+      <img src="/Managing_Restaurant/Img/Lauhaisan.jpg">
+      <h4>Lẩu Hải Sản</h4>
+      <p>160.000đ</p>
+      <button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+      <img src="/Managing_Restaurant/Img/Laushabu.jpg">
+      <h4>Lẩu Shabu Shabu</h4>
+      <p>140.000đ</p>
+      <button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+      <img src="/Managing_Restaurant/Img/Lauchuacay.jpg">
+      <h4>Lẩu Chua Cay</h4>
+      <p>130.000đ</p>
+      <button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+      <img src="/Managing_Restaurant/Img/Laukimchi.jpeg">
+      <h4>Lẩu Kim Chi</h4>
+      <p>135.000đ</p>
+      <button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+      <img src="/Managing_Restaurant/Img/Laubulgogi.jpg">
+      <h4>Lẩu Bulgogi</h4>
+      <p>150.000đ</p>
+      <button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+      <img src="/Managing_Restaurant/Img/Launam.jpg">
+      <h4>Lẩu Nấm</h4>
+      <p>120.000đ</p>
+      <button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+<!--  -->
+    <div class="food-item">
+      <img src="/Managing_Restaurant/Img/Lauthaomoc.jpg">
+      <h4>Lẩu Thảo Mộc</h4>
+      <p>130.000đ</p><button class="add-cart">🛒</button>
+      
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+      <img src="/Managing_Restaurant/Img/Laurieu.jpg">
+      <h4>Lẩu Riêu Cua</h4>
+      <p>140.000đ</p>
+      <button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+      <img src="/Managing_Restaurant/Img/Lauthai.jpeg">
+      <h4>Lẩu Thái</h4>
+      <p>120.000đ</p>
+      <button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+
+  </div>
+</fieldset>
+
+<fieldset id="bo">ß
+  <legend>Bò</legend>
+  <div class="food-grid">
+    <!--  -->
+    <div class="food-item">
+      <img src="/Managing_Restaurant/Img/Bobap.jpg">
+      <h4>Bắp Bò</h4><p>120.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+      <img src="/Managing_Restaurant/Img/Bovai.jpg">
+      <h4>Nạc Vai Bò</h4>
+      <p>125.000đ</p>
+      <button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Boxuong.jpg">
+      <h4>Sườn Bò</h4><p>150.000đ</p>
+      <button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Boloi.jpg">
+      <h4>Lõi Vai Bò</h4><p>145.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Bothan.jpg">
+      <h4>Thăn Bò</h4><p>160.000đ</p><button class="add-cart">🛒</button>
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Bobapchan.jpeg">
+      <h4>Bắp Chân Bò</h4><p>135.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Bovien.webp">
+      <h4>Bò Viên</h4><p>100.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Bosotcay.jpg">
+      <h4>Bò Sốt Cay</h4><p>180.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Bosottieu.jpg">
+      <h4>Bò Sốt Tiêu</h4><p>170.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Bonamkimcham.webp">
+      <h4>Bò Cuộn Nấm</h4><p>160.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+
+  </div>
+</fieldset>
+
+<fieldset id="heo">
+  <legend>Heo</legend>
+  <div class="food-grid">
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Heobachi.jpg">
+      <h4>Ba Chỉ Heo</h4><p>100.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Heonacvai.jpg">
+      <h4>Nạc Vai Heo</h4><p>95.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Heosuon.jpg">
+      <h4>Sườn Heo</h4><p>120.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Heoxuong.jpg">
+      <h4>Xương Heo</h4><p>110.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Heoongxuong.jpg">
+      <h4>Ống Xương Heo</h4><p>100.000đ</p><button class="add-cart">🛒</button>
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Heobapcuon.png">
+      <h4>Bắp Giò Heo Cuốn</h4><p>150.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Heosottieu.jpeg">
+      <h4>Heo Sốt Tiêu</h4><p>130.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Heokimcham.jpg">
+      <h4>Heo Cuộn Nấm</h4><p>130.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+  </div>
+</fieldset>
+
+<fieldset id="haisan">
+  <legend>Hải sản</legend>
+  <div class="food-grid">
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Cabasa.jpg">
+      <h4>Cá Ba Sa</h4><p>170.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Cahoi.jpg">
+      <h4>Cá Hồi</h4><p>250.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Cangu.jpg">
+      <h4>Cá Ngừ</h4><p>190.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Tom.jpeg">
+      <h4>Tôm Sú</h4><p>200.000đ</p><button class="add-cart">🛒</button>
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Muc.jpg">
+      <h4>Mực Ống</h4><p>200.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Sodiep.jpg">
+      <h4>Sò Điệp</h4><p>180.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Hau.jpg">
+      <h4>Hàu Sống</h4><p>200.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    
+  </div>
+</fieldset>
+
+<fieldset id="raunam">
+  <legend>Rau & Nấm</legend>
+  <div class="food-grid">
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Raubapcai.jpg">
+      <h4>Bắp Cải</h4><p>50.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Raucaichip.jpg">
+      <h4>Rau Cải chip</h4><p>50.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Cucai.jpg">
+      <h4>Củ cải</h4><p>50.000đ</p><button class="add-cart">🛒</button>
+    
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Raumongtoi.webp">
+      <h4>Rau Mồng Tơi</h4><p>50.000đ</p><button class="add-cart">🛒</button>
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Namkimcham.jpg">
+      <h4>Nấm Kim Châm</h4><p>40.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Namhuong.jpg">
+      <h4>Nấm Hương</h4><p>60.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Namga.webp">
+      <h4>Nấm Gà</h4><p>60.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+  </div>
+</fieldset>
+
+<fieldset id="monkhac">
+  <legend>Món khác</legend>
+  <div class="food-grid">
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Saladtraicay.jpg">
+      <h4>Salad Trái Cây</h4><p>80.000đ</p><button class="add-cart">🛒</button>
+    
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Saladsothuong.jpg">
+      <h4>Salad Sốt Hương</h4><p>80.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Saladsotchuangot.jpg">
+      <h4>Salad Chua Ngọt</h4><p>80.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Cahoiapchao.jpg">
+      <h4>Cá hồi áp chảo</h4><p>100.000đ</p>
+      <button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Boapchao.jpg">
+      <h4>Bò áp chảo</h4><p>100.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Gaapchao.jpg">
+      <h4>Ức gà áp chảo</h4><p>90.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Sandwichtom.jpg">
+      <h4>Sandwich tôm xoài</h4><p>95.000đ</p>
+      <button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Sandwichcahoi.jpg">
+      <h4>Sandwich cá hồi hương cam</h4>
+      <p>90.000đ</p><button class="add-cart">🛒</button>
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item"><img src="/Managing_Restaurant/Img/Sandwichtrung.jpg">
+      <h4>Sandwich phomai bơ trứng</h4>
+      <p>80.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <div class="food-item">
+      <img src="/Managing_Restaurant/Img/Saladlucsác.jpg">
+      <h4>Cuộn lục sắc</h4>
+      <p>80.000đ</p><button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+      <img src="/Managing_Restaurant/Img/Supbido.jpg">
+      <h4>Súp Bí Ngô</h4>
+      <p>70.000đ</p>
+      <button class="add-cart">🛒</button>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+    </div>
+  </div>
+</fieldset>
+
+</main>
+<footer>
+  <div class="footer-container">
+    <div class="footer-section">
+      <h3>Về Chúng Tôi</h3>
+      <p>Hand In Hand là nơi chia sẻ ẩm thực và kết nối yêu thương qua những món ăn đậm vị.</p>
+    </div>
+
+    <div class="footer-section">
+      <h3>Nổi bật</h3>
+      <a href="Food.html">Hương vị ẩm thực</a>
+      <a href="Drink.html">Hương thơm giải khát</a>
+      <a href="New.html">Deal hời sẵn sàng</a>
+    </div>
+
+    <div class="footer-section">
+      <h3>Theo Dõi Chúng Tôi</h3>
+      <div class="social-icons">
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram"></a>
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© FOOD&OUR .</p>
+  </div>
+</footer>
+
+<script src="/Managing_Restaurant/Source/Food.js"></script>
+</body>
+</html>

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nước uống</title>
+<link rel="stylesheet" href="/Managing_Restaurant/Source/Food.css">
+<link rel="stylesheet" href="/Managing_Restaurant/Source/Header.css">
+<link rel="stylesheet" href="/Managing_Restaurant/Source/Footer.css">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <div class="logo">FOOD<span>&OUR</span></div>
+      <div class="right-box">
+  
+        <span class="link" onclick="location.href='Giohang.html';" style="cursor:pointer;">🛒 MUA NHỮNG THỨ GÌ!!!</span>
+      </div>
+    </div>
+    <nav class="menu-bar">
+        <a href="Home.html">TRANG CHỦ</a>
+        <a href="Food.html">MÓN ĂN</a>
+        <a href="Drink.html">NƯỚC UỐNG</a>
+        <a href="Contact.html">LIÊN HỆ & Ý KIẾN</a>
+      </nav>
+  </header>
+
+
+<section class="food-buttons" id="foodButtons">
+  <button class="food-btn" data-target="lau"><img src="/Managing_Restaurant/Img1/Coffee.jpeg"><span>Coffee</span></button>
+  <button class="food-btn" data-target="tra"><img src="/Managing_Restaurant/Img1/Tratraicay.jpg"><span>Trà trái cây</span></button>
+  <button class="food-btn" data-target="nuocep"><img src="/Managing_Restaurant/Img1/Nuocep.jpg"><span>Nước ép</span></button>
+  <button class="food-btn" data-target="daxay"><img src="/Managing_Restaurant/Img1/Daxay.jpg"><span>Đá xay</span></button>
+  <button class="food-btn" data-target="nuocngot"><img src="/Managing_Restaurant/Img1/Nuocngot.jpg"><span>Nước ngọt</span></button>
+</section>
+
+<main class="food-content">
+
+<fieldset id="lau">
+  <legend>Coffee</legend>
+  <div class="food-grid">
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Expresso.jpg">
+        <h4>Espresso</h4>
+        <p>25.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Cappuccino.jpg">
+        <h4>Cappuccino</h4>
+        <p>27.000đ</p>
+        <button class="add-cart">🛒</button>
+
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Latte.jpg">
+        <h4>Latte</h4>
+        <p>30.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/mocha.jpeg">
+        <h4>Mocha</h4>
+        <p>33.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Macchiato.webp">
+        <h4>Caramel Machiato</h4>
+        <p>30.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/cafedua.jpg">
+        <h4> Cà phê sữa dừa</h4>
+        <p>30.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/cafehanhnhan.jpg">
+        <h4> Cà phê hạnh nhân</h4>
+        <p>33.000đ</p><button class="add-cart">🛒</button>
+        <div class="quantity-control">
+          <button class="minus">−</button>
+          <span class="quantity">1</span>
+          <button class="plus">+</button>
+        </div>
+    </div>
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/cafekemdua.jpeg">
+        <h4>Cà phê kem dừa</h4>
+        <p>35.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/cafekemtrung.jpg">
+        <h4>Cà phê kem trứng</h4>
+        <p>33.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/cafesua.webp">
+        <h4>Cà phê sữa đá</h4>
+        <p>27.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/cafeden.jpg">
+        <h4>Cà phê đen đá</h4>
+        <p>25.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+
+  </div>
+</fieldset>
+
+<fieldset id="tra">
+  <legend>Trà trái cây</legend>
+  <div class="food-grid">
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Travietquoc.jpg">
+        <h4>Trà việt quất</h4>
+        <p>25.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/traquaanhdao.jpg">
+        <h4>Trà quả mọng anh đào</h4>
+        <p>27.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Traluu.jpg">
+        <h4>Trà lựu hồng</h4>
+        <p>27.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Tranguyetvong.jpg">
+        <h4>Trà Nguyệt Vọng</h4>
+        <p>30.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Trachanh.jpg">
+        <h4>Trà chanh</h4>
+        <p>25.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Trasenlasdua.jpg">
+        <h4>Trà sen lá nếp</h4>
+        <p>33.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Tratraicaynhietdoi.png">
+        <h4>Trà trái cây nhiệt đới</h4>
+        <p>30.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Trathanhdao.webp">
+        <h4>Trà thanh đào</h4>
+        <p>25.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Trasenvang.jpg">
+        <h4>Trà sen vàng</h4>
+        <p>33.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Trahoa.jpg">
+        <h4>Trà hoa đậu biết</h4>
+        <p>27.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+
+  </div>
+</fieldset>
+
+<fieldset id="nuocep">
+  <legend>Nước ép</legend>
+  <!--  -->
+  <div class="food-grid">
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/nuocepoi.jpg">
+        <h4>Nước ép ổi</h4>
+        <p>27.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Nuocepdau.webp">
+        <h4>Nước ép dâu</h4>
+        <p>30.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/nuocepcachua.webp">
+        <h4>Nước ép cà chua</h4>
+        <p>27.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Nuocepduahau.jpeg">
+        <h4>Nước ép dưa hấu</h4>
+        <p>30.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/nuocepxoai.webp">
+        <h4>Nước ép xoài</h4>
+        <p>30.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/nuocepcarot.webp">
+        <h4>Nước ép cà rốt</h4>
+        <p>27.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/nuoceptao.jpeg">
+        <h4>Nước ép táo</h4>
+        <p>27.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+
+  </div>
+</fieldset>
+
+<fieldset id="daxay">
+  <legend>Đá xay</legend>
+  <div class="food-grid">
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Daxaycookies.jpg">
+        <h4>Đá xay cookies kem phô mai</h4>
+        <p>33.000đ</p>
+        <button class="add-cart">🛒</button>
+
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Daxaysoco.jpg">
+        <h4>Đá xay kem so-co-la hạnh nhân</h4>
+        <p>35.000đ</p>
+        <button class="add-cart">🛒</button>
+
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Daxaycaphecaramel.jpg">
+        <h4>Đá xay cà phê caramel</h4>
+        <p>27.000đ</p><button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Daxaymatcha.jpg">
+        <h4>Đá xay matcha sữa</h4>
+        <p>33.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Daxaybodua.jpg">
+        <h4>Đá xay bơ dừa</h4>
+        <p>33.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Daxayoidua.jpg">
+        <h4>Đá xay ổi dừa</h4>
+        <p>33.000đ</p>
+        <button class="add-cart">🛒</button>
+
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Daxaymongmo.jpg">
+        <h4>Đá xay mộng mơ</h4>
+        <p>33.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+
+  </div>
+</fieldset>
+
+<fieldset id="nuocngot">
+  <legend>Nước ngọt</legend>
+  <div class="food-grid">
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Sodadau.jpg">
+        <h4>Soda dâu</h4>
+        <p>20.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Sodachanh.jpg">
+        <h4>Soda chanh mơ</h4>
+        <p>20.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Sodataohong.jpg">
+        <h4>Soda táo hồng</h4>
+        <p>20.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Suprise.jpg">
+        <h4>Suprise</h4>
+        <p>20.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/7up.jpg">
+        <h4>7up</h4>
+        <p>20.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Coca.jpg">
+        <h4>Coca Cola</h4>
+        <p>20.000đ</p>
+        <button class="add-cart">🛒</button>
+    
+        <div class="quantity-control">
+            <button class="minus">−</button>
+            <span class="quantity">1</span>
+            <button class="plus">+</button>
+          </div>
+    </div>
+    <!--  -->
+    <div class="food-item">
+        <img src="/Managing_Restaurant/Img1/Pepsi.jpg">
+        <h4>Pepsi</h4>
+        <p>20.000đ</p>
+        <button class="add-cart">🛒</button>
+        <div class="quantity-control">
+          <button class="minus">−</button>
+          <span class="quantity">1</span>
+          <button class="plus">+</button>
+        </div>
+    </div>
+
+  </div>
+</fieldset>
+</main>
+<footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Về Chúng Tôi</h3>
+        <p>Hand In Hand là nơi chia sẻ ẩm thực và kết nối yêu thương qua những món ăn đậm vị.</p>
+      </div>
+  
+      <div class="footer-section">
+        <h3>Nổi bật</h3>
+        <a href="Food.html">Hương vị ẩm thực</a>
+        <a href="Drink.html">Hương thơm giải khát</a>
+        <a href="New.html">Deal hời sẵn sàng</a>
+      </div>
+  
+      <div class="footer-section">
+        <h3>Theo Dõi Chúng Tôi</h3>
+        <div class="social-icons">
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram"></a>
+          <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter"></a>
+        </div>
+      </div>
+    </div>
+  
+    <div class="footer-bottom">
+      <p>© FOOD&OUR .</p>
+    </div>
+  </footer>
+<script src="/Managing_Restaurant/Source/Food.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giỏ Hàng</title>
+<link rel="stylesheet" href="/Managing_Restaurant/Source/Cart.css">
+</head>
+<body>
+
+<header class="header">
+  <nav>
+    <a href="Food.html" class="back-btn">←</a>
+    <p>Giỏ hàng</p>
+  </nav>
+</header>
+<div class="num-table">
+  <p>Số bàn</p>
+  <div  id="tableNumber" class="table-number">1</div>
+</div>
+
+<main class="cart-container">
+
+  <div id="cart-items" class="cart-item">
+    <!-- Sản phẩm -->
+  </div>
+</main>
+
+<!-- Khung thanh toán -->
+<footer class="order-bar">
+  <div class="order-info">
+    <p>Tổng tiền: <span id="total-price">0đ</span></p>
+    <p>Số lượng: <span id="total-quantity">0</span></p>
+  </div>
+  <button id="order-btn" class="order-btn">Đặt Món</button>
+</footer>
+
+<!--  xác nhận -->
+<div id="confirm-popup" class="popup hidden">
+  <div class="popup-content">
+    <button class="close-btn" id="close-popup">✖️</button>
+    <h3>Xác nhận đơn hàng</h3>
+    <p>Bạn muốn tiếp tục như thế nào?</p>
+    <div class="popup-actions">
+      <button id="add-more-btn" class="btn-secondary">Đặt thêm món</button>
+      <button id="pay-btn" class="btn-primary">Thanh toán</button>
+    </div>
+  </div>
+</div>
+
+<!-- chọn phương thức thanh toán -->
+<div id="payment-method-popup" class="popup hidden">
+  <div class="popup-content">
+    <h3>Chọn phương thức thanh toán</h3>
+    <p>Bạn muốn thanh toán bằng cách nào?</p>
+    <div class="popup-actions">
+      <button id="cash-btn" class="btn-secondary"> Tiền mặt</button>
+      <button id="bank-btn" class="btn-primary"> Chuyển khoản</button>
+    </div>
+  </div>
+</div>
+
+<script src="/Managing_Restaurant/Source/Cart.js"></script>
+</body>
+</html>

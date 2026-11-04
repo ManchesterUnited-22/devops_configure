@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thanh toán</title>
+<link rel="stylesheet" href="/Managing_Restaurant/Source/Thanhtoan.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="/Managing_Restaurant/HTML/User/Giohang.html" class="back-btn">←</a>
+    <p>Thanh toán</p>
+  </nav>
+</header>
+
+<div class="container">
+
+
+  <h3>Danh sách đơn hàng</h3>
+  <div class="order-items" id="order-items">
+    <!-- Danh sách món  -->
+  </div>
+
+  <div class="order-info-top">
+    <span>Tổng tiền:</span>
+    <span id="total-price">0đ</span>
+  </div>
+
+  <h3>Chọn phương thức thanh toán</h3>
+  <div class="payment-options-vertical">
+    <div class="payment-card" id="momo">
+      <img src="https://img.vn.my-best.com/product_images/46a1e951d1a180986edbbcf0aa444af8.png?ixlib=rails-4.3.1&q=70&lossless=0&w=800&h=800&fit=clip&s=9646e049c69cac38bb7b06e34072e52a" alt="MoMo">
+      <span>Ví MoMo</span>
+    </div>
+    <div class="payment-card" id="bank">
+      <img src="https://png.pngtree.com/png-clipart/20230426/original/pngtree-bank-line-icon-png-image_9104616.png" alt="Ngân hàng">
+      <span>Ngân hàng</span>
+    </div>
+    <select id="bankSelect" class="bank-select">
+      <option value="">Chọn ngân hàng</option>
+      <option value="mbbank">MBBank</option>
+      <option value="tpbank">TPBank</option>
+      <option value="vietcombank">Vietcombank</option>
+    </select>
+  </div>
+
+  <button id="continueBtn" class="btn">Tiếp tục</button>
+
+  <div id="momoQRCode" style="text-align:center; margin-top:15px;"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="/Managing_Restaurant/Source/Thanhtoan.js"></script>
+</body>
+</html>

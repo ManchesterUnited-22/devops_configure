@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản Lý Nhà Hàng</title>
+<link rel="stylesheet" href="/Managing_Restaurant/Source/Managing.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">FOOD&OUR</div>
+    <nav>
+      <button id="menu-toggle" class="hamburger">☰</button>
+
+      <button class="menu-btn" onclick="loadOrders('pending')">Đơn yêu cầu đặt</button>
+      <button class="menu-btn" onclick="loadPaidOrders('paid')">Đơn đã thanh toán</button>
+      <button class="menu-btn" onclick="loadRevenue()">Tổng thu chi</button>
+      <button class="menu-btn" onclick="loadEmployee()">Quản lý nhân viên</button>
+      <button class="menu-btn" onclick="loadAsk()">Đánh giá khách hàng</button>
+      <button class="logout">Đăng xuất</button>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <!--  -->
+    <div class="header-search-row hidden" id="header-row">
+      <h2 id="page-title"></h2>
+      <input type="text" id="live-search" class="search-modern" placeholder="Tìm kiếm...">
+    </div>
+    <section id="order-section" class="order-section hidden">
+      <table id="orders-table">
+        <thead id="table-head"></thead>
+        <tbody id="order-body"></tbody>
+      </table>
+    </section>
+    <!-- loadAsk -->
+    <div class="ask-grid hidden" id="ask-container"></div>
+
+    <!-- Tổng chi -->
+    <div id="expense-container" class="expense-container hidden">
+        <div class="expense-box">
+          <input type="date" id="expense-date"> 
+            <input type="number" id="expense-input" placeholder="Nhập tiền chi">
+            <button id="expense-btn"><b>Thêm</b></button>
+          </div>
+    </div>
+    <div id="delete-feedback" class="delete-feedback hidden">
+      <div class="expense-box">
+  
+      <label>Từ ngày: <input type="date" id="from-date"></label>
+      <label>Đến ngày: <input type="date" id="to-date"></label>
+      <button id="deletefeedback-btn" ><b>Xoá</b></button>
+      </div>
+  
+  </div>
+  </main>
+
+
+
+  <!-- Cart -->
+  <aside class="cart hidden" id="cart-aside">
+    <button class="close-btn" id="close-popup">✖️</button>
+    <h3>Đơn hàng</h3>
+    <div id="cart-items"></div>
+    <button id="confirm-btn" class="btn-red hidden">Xác nhận</button>
+  </aside>
+<!-- đánh giá -->
+<aside class="popup hidden" id="feedback-popup">
+  <button class="close-btn" id="close-feedback-popup">✖️</button>
+  <h3 id="feedback-title">Nội dung</h3>
+  <div id="feedback-items"></div>
+</aside>
+
+</div>
+
+<script src="/Managing_Restaurant/Source/Managing.js"></script>
+
+</body>
+</html>
