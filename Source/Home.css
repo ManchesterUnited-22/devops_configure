@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  body {
+    line-height: 1.6;
+  }
+  
+  header {
+    position: fixed;         
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #c24f4f;      
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;           
+  }
+  
+  header h1 {
+    font-size: 24px;
+  }
+  
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin-inline: 20px;
+    font-weight: bold;
+  }
+  
+  nav a:hover {
+    text-decoration: underline;
+  }
+  
+  /*  BANNER  */
+  .banner {
+    margin-top: 80px;         
+    background: url('https://picsum.photos/1200/400') center/cover no-repeat;
+    color: white;
+    text-align: center;
+    padding: 120px 20px;
+  }
+  
+  .banner h2 {
+    font-size: 36px;
+    background: rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+  }
+  
+  /*  CONTENT  */
+  main {
+    padding: 40px;
+    margin-top: 80px;         
+
+  }
+  
+  

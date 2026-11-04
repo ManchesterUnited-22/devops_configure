@@ -1,0 +1,208 @@
+* {
+    margin:0; 
+    padding:0; 
+    box-sizing:border-box; 
+    font-family:'Poppins', sans-serif;
+}
+body {
+    background:#fff;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:20px;
+}
+
+header {
+    background:#fff;
+    padding:20px;
+    box-shadow:0 6px 18px rgba(139,0,0,0.2);
+    width:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:100;
+}
+header nav {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+}
+.back-btn {
+    position:absolute;
+    left:20px;
+    color:#8B0000;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:20px;
+}
+header p {
+    color:#8B0000;
+    font-weight:bold;
+    font-size:28px;
+}
+
+.container {
+    width: 100%;          
+    max-width: 900px;     
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(139,0,0,0.2);
+    padding: 30px 25px;
+    text-align: center;
+    margin-top: 120px;
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.container h3 {
+    font-size: 23px;
+    color:#341212
+}
+
+.order-items {
+    text-align:left;
+    margin-top: 15px;
+    margin-bottom:20px;
+    max-height:250px;
+    overflow-y:auto;
+    padding:10px;
+    border:2px solid #584141;
+    border-radius:12px;
+    background:#fff0f0;
+}
+.order-item {
+    display:flex;
+    justify-content:space-between;
+    padding:8px 10px;
+    border-bottom:1px solid #eee;
+    font-size:16px;
+    color:#584141;
+}
+.order-item:last-child { 
+    border-bottom:none; 
+}
+
+.order-info-top {
+    display:flex;
+    justify-content:space-between;
+    font-size:18px;
+    font-weight:bold;
+    color:#341212;
+    margin-bottom:25px;
+}
+
+.payment-options-vertical {
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:30px;
+    margin-top: 15px;
+}
+.payment-card {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 12px; 
+    border-radius:15px;
+    cursor:pointer;
+    background:#fff0f0;
+    box-shadow: 4px 4px 8px rgba(0,0,0,0.15),
+                -4px -4px 8px rgba(255,255,255,0.7);
+    transition:all 0.3s ease;
+}
+.payment-card img {
+    width:30px; 
+    height:30px;
+} 
+.payment-card span {
+    color:#8B0000; 
+    font-weight:600; 
+    font-size:14px;
+} 
+.payment-card:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.2),
+                -3px 10px 10px rgba(255,255,255,0.9);
+}
+.payment-card.active {
+    background: #fef8f8;
+    box-shadow: inset 4px 4px 10px rgba(0,0,0,0.15),
+                inset -4px -4px 8px rgba(255,255,255,0.7);
+    transform: translateY(1px);
+}
+.payment-card.error {
+    border: 2px solid red !important;
+}
+
+.bank-select {
+    display: none; 
+    width: 100%;
+    margin: 10px auto 20px auto;
+    padding: 8px 10px;
+    border-radius: 12px;
+    border: none;
+    font-size: 14px;
+    background:#fffdfd;
+    box-shadow: inset 3px 20px 10px rgba(0,0,0,0.1),
+                inset -3px -3px 6px rgba(255,255,255,0.7);
+    cursor: pointer;
+    color:#341212;
+}
+
+.btn {
+    width:100%;
+    padding:12px 0;
+    background:#8B0000;
+    color:#fff;
+    border:none;
+    border-radius:20px;
+    font-weight:bold;
+    font-size:18px;
+    cursor:pointer;
+    transition:all 0.3s ease;
+}
+.btn:hover {
+    background:#b22222; 
+    transform:scale(1.05);
+}
+
+@media(max-width:430px){
+    header p{
+        font-size: 20px;
+      }
+      .back-btn {
+        size:15px;
+      }
+    .container {
+        padding:20px 15px;
+    }
+    .container h3 {
+        font-size: 18px;
+    }
+    .order-items {
+        max-height:200px;
+        font-size: 12px;
+    }
+    .order-item {
+        padding:6px;
+    }
+    .order-info-top {
+        font-size: 16px;
+    }
+    .payment-card {
+        gap:6px; 
+        padding:6px 10px;
+    }
+    .payment-card img {
+        width:25px; 
+        height:25px;
+    }
+    .payment-card span {
+        font-size:13px;
+    }
+    .btn {
+        font-size:16px; 
+        padding:10px 0;
+    }
+}

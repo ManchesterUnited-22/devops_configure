@@ -1,0 +1,292 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; 
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hero-section {
+    background: url('/Managing_Restaurant/Img/Hero_Background.jpg') no-repeat center center/cover; /* Thay bằng ảnh banner đẹp */
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4); /* Lớp phủ mờ */
+    z-index: -1;
+}
+
+.hero-content h1 {
+    font-size: 72px;
+    margin-bottom: 5px;
+    font-weight: 800;
+    letter-spacing: 5px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.hero-content h2 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #ffcc00; 
+
+    }
+.hero-content p {
+    font-size: 18px;
+    max-width: 700px;
+    margin: 0 auto 30px;
+}
+
+.cta-button, .cta-button-secondary {
+    display: inline-block;
+    padding: 15px 35px;
+    margin: 0 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.3s, transform 0.2s;
+    text-transform: uppercase;
+}
+
+.cta-button {
+    background-color: #cc0000; 
+    color: white;
+    border: 2px solid #cc0000;
+}
+
+.cta-button:hover {
+    background-color: #a00000;
+    transform: translateY(-2px);
+}
+
+.cta-button-secondary {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.cta-button-secondary:hover {
+    background-color: white;
+    color: #cc0000;
+    transform: translateY(-2px);
+}
+
+.story-section {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    padding: 80px 20px;
+    background-color: #f8f8f8;
+}
+
+.story-image {
+    flex: 1;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.story-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+.story-text {
+    flex: 1;
+}
+
+.story-text h3 {
+    color: #cc0000;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.story-text h2 {
+    font-size: 40px;
+    font-weight: 800;
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.story-text p {
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.learn-more-btn {
+    display: inline-block;
+    color: #cc0000;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 20px;
+    border-bottom: 2px solid #cc0000;
+    padding-bottom: 2px;
+    transition: color 0.3s;
+}
+
+.learn-more-btn:hover {
+    color: #a00000;
+}
+
+
+.categories-section {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.categories-section h3 {
+    color: #cc0000;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.categories-section h2 {
+    font-size: 36px;
+    font-weight: 800;
+    margin-top: 0;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.category-card {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.category-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.category-card h4 {
+    margin: 0;
+    padding: 15px 10px;
+    background-color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #cc0000;
+}
+
+.booking-banner {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.booking-banner h2 {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.booking-banner p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #ccc;
+}
+
+.booking-button {
+    background-color: #ffcc00; 
+    color: #1a1a1a;
+    padding: 15px 40px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.booking-button:hover {
+    background-color: #ffdf60;
+    transform: translateY(-2px);
+}
+
+
+@media (max-width: 992px) {
+    .story-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .story-image {
+        width: 100%;
+    }
+
+    .story-text {
+        text-align: center;
+    }
+    
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-content h1 {
+        font-size: 50px;
+    }
+
+    .hero-content h2 {
+        font-size: 24px;
+    }
+
+    .cta-button, .cta-button-secondary {
+        display: block;
+        margin: 15px auto;
+        width: 80%;
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .story-text h2 {
+        font-size: 32px;
+    }
+}
