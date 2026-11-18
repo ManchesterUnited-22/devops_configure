@@ -39,7 +39,10 @@ pipeline {
 
                     
                     docker rm -f ${CONTAINER_NAME} || true
-
+                    for i in $(seq 1 20); do
+                        docker inspect ${CONTAINER_NAME} >/dev/null 2>&1 || break
+                        sleep 1
+                    done
                     docker run -d \
                         --name ${CONTAINER_NAME} \
                         --restart unless-stopped \
@@ -82,6 +85,10 @@ pipeline {
         if [ -s .prev_image ]; then
             PREV=$(cat .prev_image)
             docker rm -f ${CONTAINER_NAME} || true
+            for i in $(seq 1 20); do
+                docker inspect ${CONTAINER_NAME} >/dev/null 2>&1 || break
+                sleep 1
+            done
             docker run -d --name ${CONTAINER_NAME} --restart unless-stopped \
                 -p ${HOST_PORT}:80 "$PREV"
             echo "Đã rollback về $PREV"
