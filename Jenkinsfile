@@ -37,7 +37,7 @@ pipeline {
         OLLAMA_URL = 'http://127.0.0.1:11434'
         AI_MODEL = 'qwen2.5-coder:3b'
 
-        script {
+       script {
     env.DEPLOY_STARTED = 'false'
 }
     }
