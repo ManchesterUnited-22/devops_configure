@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -10,42 +11,44 @@ pipeline {
     }
 
     parameters {
-    booleanParam(
-        name: 'RUN_AI_REVIEW',
-        defaultValue: false,
-        description: 'Run optional AI Code Review'
-    )
+        booleanParam(
+            name: 'RUN_AI_REVIEW',
+            defaultValue: false,
+            description: 'Run optional AI Code Review'
+        )
 
-    choice(
-        name: 'FAILURE_TEST',
-        choices: [
-            'NONE',
-            'BEFORE_DEPLOY',
-            'AFTER_DEPLOY'
-        ],
-        description: 'Controlled pipeline failure simulation'
-    )
-}
+        choice(
+            name: 'FAILURE_TEST',
+            choices: [
+                'NONE',
+                'BEFORE_DEPLOY',
+                'AFTER_DEPLOY'
+            ],
+            description: 'Controlled pipeline failure simulation'
+        )
+    }
 
     environment {
         IMAGE_NAME = 'food-our-web'
         CONTAINER_NAME = 'food-our-container'
         HOST_PORT = '8081'
-
         TEST_PORT = '8082'
-
         OLLAMA_URL = 'http://127.0.0.1:11434'
         AI_MODEL = 'qwen2.5-coder:3b'
-
-       script {
-    env.DEPLOY_STARTED = 'false'
-}
     }
 
     stages {
 
+        // ==========================================
+        // 01. CHECKOUT SOURCE CODE
+        // ==========================================
+
         stage('Checkout') {
             steps {
+                script {
+                    env.DEPLOY_STARTED = 'false'
+                }
+
                 echo '[GIT] Getting source code...'
 
                 checkout scm
@@ -53,18 +56,26 @@ pipeline {
                 sh '''
                     rm -f .prev_image
 
-            mkdir -p reports
+                    mkdir -p reports
 
-        rm -f reports/pipeline-failure.log \
-              reports/testing-container.log \
-              reports/docker-failure.log \
-              reports/ai-incident.txt \
-              reports/ai-code-review.txt
+                    rm -f reports/pipeline-failure.log \
+                          reports/testing-container.log \
+                          reports/docker-failure.log \
+                          reports/ai-incident.txt \
+                          reports/ai-code-review.txt
 
                     git log -1 --oneline
+
+                    echo "[CONFIG] Build: ${BUILD_NUMBER}"
+                    echo "[CONFIG] Failure test: ${FAILURE_TEST}"
+                    echo "[CONFIG] AI review: ${RUN_AI_REVIEW}"
                 '''
             }
         }
+
+        // ==========================================
+        // 02. SYSTEM PREFLIGHT CHECK
+        // ==========================================
 
         stage('Preflight Check') {
             steps {
@@ -72,6 +83,7 @@ pipeline {
                     echo "[SYSTEM] Checking environment"
 
                     docker info >/dev/null
+
                     trivy --version
                     python3 --version
                     curl --version | head -n 1
@@ -85,16 +97,22 @@ pipeline {
             }
         }
 
+        // ==========================================
+        // 03. PYTHON VIRTUAL ENVIRONMENT
+        // ==========================================
+
         stage('Setup Python Environment') {
             steps {
                 sh '''
                     if [ ! -x .venv/bin/python ]; then
+                        echo "[PYTHON] Creating virtual environment"
                         python3 -m venv .venv
                     fi
 
                     if [ ! -f .venv/requirements.snapshot ] || \
-                       ! cmp -s requirements.txt \
-                       .venv/requirements.snapshot; then
+                       ! cmp -s requirements.txt .venv/requirements.snapshot
+                    then
+                        echo "[PYTHON] Installing dependencies"
 
                         .venv/bin/python -m pip install \
                             -r requirements.txt
@@ -107,6 +125,10 @@ pipeline {
                 '''
             }
         }
+
+        // ==========================================
+        // 04. OPTIONAL AI CODE REVIEW
+        // ==========================================
 
         stage('AI Code Review') {
             when {
@@ -122,18 +144,23 @@ pipeline {
                 ) {
                     timeout(time: 3, unit: 'MINUTES') {
                         sh '''
-                            echo "[AI] Reviewing source code"
+                            echo "[AI] Starting code review"
 
-                            .venv/bin/python \
-                                -m ai.code_review \
+                            .venv/bin/python -m ai.code_review \
                                 > reports/ai-code-review.txt
 
                             cat reports/ai-code-review.txt
+
+                            echo "[AI] Code review completed"
                         '''
                     }
                 }
             }
         }
+
+        // ==========================================
+        // 05. BUILD DOCKER IMAGE
+        // ==========================================
 
         stage('Build Docker Image') {
             steps {
@@ -145,10 +172,14 @@ pipeline {
 
                     docker image inspect \
                         "${IMAGE_NAME}:${BUILD_NUMBER}" \
-                        --format='Image ID: {{.Id}}'
+                        --format="Image ID: {{.Id}}"
                 '''
             }
         }
+
+        // ==========================================
+        // 06. TRIVY SECURITY GATE
+        // ==========================================
 
         stage('Security Scan') {
             steps {
@@ -161,97 +192,113 @@ pipeline {
             }
         }
 
+        // ==========================================
+        // 07. TESTING ENVIRONMENT
+        // ==========================================
+
         stage('Testing Environment') {
-    steps {
-        sh '''
-            set -eu
+            steps {
+                sh '''
+                    set -eu
 
-            mkdir -p reports
+                    mkdir -p reports
 
-            TEST_CONTAINER="${CONTAINER_NAME}-test-${BUILD_NUMBER}"
+                    TEST_CONTAINER="${CONTAINER_NAME}-test-${BUILD_NUMBER}"
 
-            cleanup() {
-                docker logs "$TEST_CONTAINER" \
-                    > reports/testing-container.log 2>&1 || true
+                    cleanup() {
+                        docker logs "$TEST_CONTAINER" \
+                            > reports/testing-container.log 2>&1 || true
 
-                docker rm -f "$TEST_CONTAINER" \
-                    >/dev/null 2>&1 || true
+                        docker rm -f "$TEST_CONTAINER" \
+                            >/dev/null 2>&1 || true
+                    }
+
+                    trap cleanup EXIT
+
+                    echo "[TEST] Starting test container"
+
+                    docker run -d \
+                        --name "$TEST_CONTAINER" \
+                        -p "127.0.0.1:${TEST_PORT}:80" \
+                        "${IMAGE_NAME}:${BUILD_NUMBER}"
+
+                    echo "[TEST] Waiting for Nginx..."
+
+                    for i in $(seq 1 15); do
+
+                        if curl \
+                            --connect-timeout 2 \
+                            --max-time 5 \
+                            --fail \
+                            --silent \
+                            --show-error \
+                            --output /dev/null \
+                            "http://127.0.0.1:${TEST_PORT}/"
+                        then
+                            echo "[TEST] HTTP check passed"
+                            exit 0
+                        fi
+
+                        echo "[TEST] Attempt $i/15 failed"
+
+                        sleep 2
+                    done
+
+                    echo "[ERROR] Testing environment failed"
+
+                    echo "[ERROR] Testing HTTP check failed" \
+                        > reports/pipeline-failure.log
+
+                    docker ps -a --filter "name=$TEST_CONTAINER"
+
+                    docker logs "$TEST_CONTAINER" || true
+
+                    exit 1
+                '''
+            }
+        }
+
+        // ==========================================
+        // 08. SIMULATE FAILURE BEFORE DEPLOYMENT
+        // ==========================================
+
+        stage('Simulate Pre-Deploy Failure') {
+            when {
+                expression {
+                    return params.FAILURE_TEST == 'BEFORE_DEPLOY'
+                }
             }
 
-            trap cleanup EXIT
+            steps {
+                sh '''
+                    mkdir -p reports
 
-            echo "[TEST] Starting test container"
+                    echo "[ERROR] Simulated pre-deployment failure" \
+                        | tee reports/pipeline-failure.log
 
-            docker run -d \
-                --name "$TEST_CONTAINER" \
-                -p "127.0.0.1:${TEST_PORT}:80" \
-                "${IMAGE_NAME}:${BUILD_NUMBER}"
+                    echo "[TEST] Production must remain unchanged"
 
-            echo "[TEST] Waiting for Nginx..."
-
-            for i in $(seq 1 15); do
-
-                if curl \
-                    --connect-timeout 2 \
-                    --max-time 5 \
-                    --fail \
-                    --silent \
-                    --show-error \
-                    --output /dev/null \
-                    "http://127.0.0.1:${TEST_PORT}/"; then
-
-                    echo "[TEST] HTTP check passed"
-                    exit 0
-                fi
-
-                echo "[TEST] Attempt $i/15 failed"
-
-                sleep 2
-            done
-
-            echo "[ERROR] Testing environment failed"
-
-            docker ps -a \
-                --filter "name=$TEST_CONTAINER"
-
-            docker logs "$TEST_CONTAINER" || true
-
-            exit 1
-        '''
-    }
-}
-        stage('Simulate Pre-Deploy Failure') {
-    when {
-        expression {
-            return params.FAILURE_TEST == 'BEFORE_DEPLOY'
+                    exit 1
+                '''
+            }
         }
-    }
 
-    steps {
-        sh '''
-            mkdir -p reports
-
-            echo "[ERROR] Simulated pre-deployment failure" \
-                > reports/pipeline-failure.log
-
-            echo "[TEST] Production must remain unchanged"
-
-            exit 1
-        '''
-    }
-}
+        // ==========================================
+        // 09. BACKUP CURRENT DEPLOYMENT
+        // ==========================================
 
         stage('Backup Current Deployment') {
             steps {
                 sh '''
                     if docker inspect "${CONTAINER_NAME}" \
-                        >/dev/null 2>&1; then
-
+                        >/dev/null 2>&1
+                    then
                         docker inspect \
-                            --format='{{.Image}}' \
+                            --format="{{.Image}}" \
                             "${CONTAINER_NAME}" > .prev_image
 
                         echo "[BACKUP] Previous image:"
+
                         cat .prev_image
                     else
                         echo "[BACKUP] First deployment"
@@ -260,6 +307,10 @@ pipeline {
             }
         }
 
+        // ==========================================
+        // 10. DEPLOY PRODUCTION CONTAINER
+        // ==========================================
+
         stage('Deploy Container') {
             steps {
                 script {
@@ -267,11 +318,13 @@ pipeline {
                 }
 
                 sh '''
+                    set -eu
+
                     echo "[DEPLOY] Starting deployment"
 
                     if docker inspect "${CONTAINER_NAME}" \
-                        >/dev/null 2>&1; then
-
+                        >/dev/null 2>&1
+                    then
                         docker rm -f "${CONTAINER_NAME}"
                     fi
 
@@ -285,56 +338,82 @@ pipeline {
                 '''
             }
         }
+
+        // ==========================================
+        // 11. SIMULATE FAILURE AFTER DEPLOYMENT
+        // ==========================================
+
         stage('Simulate Post-Deploy Failure') {
-    when {
-        expression {
-            return params.FAILURE_TEST == 'AFTER_DEPLOY'
+            when {
+                expression {
+                    return params.FAILURE_TEST == 'AFTER_DEPLOY'
+                }
+            }
+
+            steps {
+                sh '''
+                    mkdir -p reports
+
+                    echo "[ERROR] Simulated post-deployment failure" \
+                        | tee reports/pipeline-failure.log
+
+                    echo "[TEST] Automatic rollback must restore previous image"
+
+                    exit 1
+                '''
+            }
         }
-    }
 
-    steps {
-        sh '''
-            mkdir -p reports
-
-            echo "[ERROR] Simulated post-deployment failure" \
-                > reports/pipeline-failure.log
-
-            echo "[TEST] Automatic rollback must restore previous image"
-
-            exit 1
-        '''
-    }
-}
+        // ==========================================
+        // 12. VERIFY PRODUCTION DEPLOYMENT
+        // ==========================================
 
         stage('Verify Deployment') {
             steps {
                 sh '''
                     echo "[HEALTHCHECK] Checking website"
 
-                    curl \
-                        --retry 10 \
-                        --retry-connrefused \
-                        --retry-delay 2 \
-                        --max-time 5 \
-                        --fail \
-                        --silent \
-                        --show-error \
-                        --output /dev/null \
-                        "http://localhost:${HOST_PORT}/"
+                    for i in $(seq 1 15); do
 
-                    echo "[HEALTHCHECK] HTTP check passed"
+                        if curl \
+                            --connect-timeout 2 \
+                            --max-time 5 \
+                            --fail \
+                            --silent \
+                            --show-error \
+                            --output /dev/null \
+                            "http://127.0.0.1:${HOST_PORT}/"
+                        then
+                            echo "[HEALTHCHECK] HTTP check passed"
 
-                    docker ps \
-                        --filter "name=${CONTAINER_NAME}"
+                            docker ps \
+                                --filter "name=${CONTAINER_NAME}"
 
-                    docker inspect \
-                        --format='{{.State.Status}}' \
-                        "${CONTAINER_NAME}"
+                            docker inspect \
+                                --format="{{.State.Status}}" \
+                                "${CONTAINER_NAME}"
 
-                    echo "[HEALTHCHECK] Deployment verified"
+                            echo "[HEALTHCHECK] Deployment verified"
+
+                            exit 0
+                        fi
+
+                        echo "[HEALTHCHECK] Attempt $i/15 failed"
+
+                        sleep 2
+                    done
+
+                    echo "[ERROR] Production health check failed" \
+                        | tee reports/pipeline-failure.log
+
+                    exit 1
                 '''
             }
         }
+
+        // ==========================================
+        // 13. UPDATE LATEST IMAGE TAG
+        // ==========================================
 
         stage('Update Latest Tag') {
             steps {
@@ -348,6 +427,10 @@ pipeline {
             }
         }
 
+        // ==========================================
+        // 14. CLEANUP OLD DOCKER IMAGES
+        // ==========================================
+
         stage('Cleanup Old Images') {
             steps {
                 sh '''
@@ -358,42 +441,59 @@ pipeline {
                         | grep -E '^[0-9]+$' \
                         | sort -rn \
                         | tail -n +4 \
-                        | xargs -r -I{} \
-                            docker rmi "${IMAGE_NAME}:{}" \
-                        || true
+                        | xargs -r -I{} docker rmi \
+                            "${IMAGE_NAME}:{}" || true
                 '''
             }
         }
     }
 
+    // ==============================================
+    // POST PIPELINE ACTIONS
+    // ==============================================
+
     post {
+
+        // ==========================================
+        // SUCCESS
+        // ==========================================
 
         success {
             echo '[SUCCESS] Deployment completed!'
         }
 
-        failure {
+        // ==========================================
+        // FAILURE HANDLING
+        // ==========================================
 
+        failure {
             echo '[ERROR] Pipeline failed'
 
             script {
 
-                // Capture logs before rollback
+                // ----------------------------------
+                // COLLECT DOCKER FAILURE LOGS
+                // ----------------------------------
+
                 sh '''
                     mkdir -p reports
 
-                    if [ "${DEPLOY_STARTED}" = "true" ]; then
-                        docker logs \
-                            --tail 100 \
+                    if [ "${DEPLOY_STARTED:-false}" = "true" ]; then
+
+                        docker logs --tail 100 \
                             "${CONTAINER_NAME}" \
-                            > reports/docker-failure.log 2>&1 \
-                            || true
+                            > reports/docker-failure.log 2>&1 || true
+
                     fi
                 '''
 
+                // ----------------------------------
+                // AUTOMATIC ROLLBACK
+                // ----------------------------------
+
                 if (env.DEPLOY_STARTED == 'true') {
 
-                    echo '[ROLLBACK] Restoring previous version'
+                    echo '[ROLLBACK] Starting automatic rollback'
 
                     catchError(
                         buildResult: 'FAILURE',
@@ -402,94 +502,133 @@ pipeline {
                         sh '''
                             set -eu
 
-                            if docker inspect "${CONTAINER_NAME}" \
-                                >/dev/null 2>&1; then
+                            if [ ! -s .prev_image ]; then
 
+                                echo "[ROLLBACK] No previous image available"
+
+                                exit 1
+                            fi
+
+                            PREV=$(cat .prev_image)
+
+                            echo "[ROLLBACK] Previous image: $PREV"
+
+                            docker image inspect "$PREV" >/dev/null
+
+                            if docker inspect "${CONTAINER_NAME}" \
+                                >/dev/null 2>&1
+                            then
                                 docker rm -f "${CONTAINER_NAME}"
                             fi
 
-                            if [ -s .prev_image ]; then
+                            docker run -d \
+                                --name "${CONTAINER_NAME}" \
+                                --restart unless-stopped \
+                                -p "${HOST_PORT}:80" \
+                                "$PREV"
 
-                                PREV=$(cat .prev_image)
+                            echo "[ROLLBACK] Checking restored website"
 
-                                docker run -d \
-                                    --name "${CONTAINER_NAME}" \
-                                    --restart unless-stopped \
-                                    -p "${HOST_PORT}:80" \
-                                    "$PREV"
+                            for i in $(seq 1 15); do
 
-                                curl \
-                                    --retry 10 \
-                                    --retry-connrefused \
-                                    --retry-delay 2 \
+                                if curl \
+                                    --connect-timeout 2 \
                                     --max-time 5 \
                                     --fail \
                                     --silent \
                                     --show-error \
                                     --output /dev/null \
-                                    "http://localhost:${HOST_PORT}/"
+                                    "http://127.0.0.1:${HOST_PORT}/"
+                                then
+                                    docker tag "$PREV" \
+                                        "${IMAGE_NAME}:latest"
 
-                                docker tag "$PREV" \
-                                    "${IMAGE_NAME}:latest"
+                                    echo "[ROLLBACK] HTTP check passed"
 
-                                echo "[ROLLBACK] Restored $PREV"
+                                    echo "[ROLLBACK] Previous image restored successfully"
 
-                            else
-                                echo "[ROLLBACK] No previous version"
-                            fi
+                                    exit 0
+                                fi
+
+                                echo "[ROLLBACK] Attempt $i/15 failed"
+
+                                sleep 2
+                            done
+
+                            echo "[ROLLBACK] Restored website failed health check" \
+                                >> reports/pipeline-failure.log
+
+                            exit 1
                         '''
                     }
 
                 } else {
+
                     echo '[ROLLBACK] Not required'
                 }
 
-                // AI incident analysis
+                // ----------------------------------
+                // AI INCIDENT ANALYSIS
+                // ----------------------------------
+
                 catchError(
-    buildResult: 'FAILURE',
-    stageResult: 'FAILURE'
-) {
-    timeout(time: 3, unit: 'MINUTES') {
-        sh '''
-            echo "[AI] Analyzing pipeline failure"
+                    buildResult: 'FAILURE',
+                    stageResult: 'FAILURE'
+                ) {
+                    timeout(time: 3, unit: 'MINUTES') {
+                        sh '''
+                            echo "[AI] Analyzing pipeline failure"
 
-            mkdir -p reports
+                            mkdir -p reports
 
-            if [ -x .venv/bin/python ]; then
+                            if [ -x .venv/bin/python ]; then
 
-                {
-                    echo "Jenkins Build: ${BUILD_NUMBER}"
-                    echo "Pipeline status: FAILURE"
-                    echo "Deploy started: ${DEPLOY_STARTED}"
+                                {
+                                    echo "Jenkins Build: ${BUILD_NUMBER}"
 
-                    for LOG in \
-                        reports/testing-container.log \
-                        reports/docker-failure.log \
-                        reports/pipeline-failure.log
-                    do
-                        if [ -f "$LOG" ]; then
-                            echo "===== $LOG ====="
-                            tail -n 100 "$LOG"
-                        fi
-                    done
+                                    echo "Pipeline status: FAILURE"
 
-                } | .venv/bin/python \
-                    -m ai.log_analyzer \
-                    > reports/ai-incident.txt
+                                    echo "Failure test: ${FAILURE_TEST}"
 
-                cat reports/ai-incident.txt
+                                    echo "Deploy started: ${DEPLOY_STARTED:-false}"
 
-            else
-                echo "[AI] Python environment unavailable"
-            fi
-        '''
-    }
-}
+                                    for LOG in \
+                                        reports/testing-container.log \
+                                        reports/docker-failure.log \
+                                        reports/pipeline-failure.log
+                                    do
+                                        if [ -f "$LOG" ]; then
+
+                                            echo "===== $LOG ====="
+
+                                            tail -n 100 "$LOG"
+
+                                        fi
+                                    done
+
+                                } | .venv/bin/python -m ai.log_analyzer \
+                                    > reports/ai-incident.txt
+
+                                cat reports/ai-incident.txt
+
+                                echo "[AI] Incident analysis completed"
+
+                            else
+
+                                echo "[AI] Python environment unavailable"
+
+                            fi
+                        '''
+                    }
+                }
             }
         }
 
-        cleanup {
+        // ==========================================
+        // ARCHIVE REPORTS AND CLEANUP
+        // ==========================================
 
+        cleanup {
             archiveArtifacts(
                 artifacts: 'reports/**/*.txt,reports/**/summary.json',
                 allowEmptyArchive: true
@@ -497,9 +636,9 @@ pipeline {
 
             sh '''
                 rm -f .prev_image
-            '''
 
-            echo '[SYSTEM] Pipeline finished'
+                echo "[SYSTEM] Pipeline finished"
+            '''
         }
     }
 }

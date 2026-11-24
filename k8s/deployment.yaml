@@ -1,50 +1,110 @@
+
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: food-our
+
 spec:
   replicas: 2
+
   strategy:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 0
+
   selector:
     matchLabels:
       app: food-our
+
   template:
     metadata:
       labels:
         app: food-our
+
     spec:
+      automountServiceAccountToken: false
+
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 101
+        runAsGroup: 101
+        fsGroup: 101
+        seccompProfile:
+          type: RuntimeDefault
+
       containers:
         - name: web
+
           image: food-our-web:latest
           imagePullPolicy: Never
+
           ports:
-            - containerPort: 80
+            - name: http
+              containerPort: 80
+
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 101
+            runAsGroup: 101
+            privileged: false
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - NET_BIND_SERVICE
+
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "32Mi"
+
+            limits:
+              cpu: "500m"
+              memory: "128Mi"
+
+          volumeMounts:
+            - name: nginx-tmp
+              mountPath: /tmp
+
           readinessProbe:
             httpGet:
               path: /
               port: 80
             initialDelaySeconds: 2
             periodSeconds: 5
+
           livenessProbe:
             httpGet:
               path: /
               port: 80
             initialDelaySeconds: 10
             periodSeconds: 10
+
+      volumes:
+        - name: nginx-tmp
+          emptyDir:
+            sizeLimit: 64Mi
+
 ---
 apiVersion: v1
 kind: Service
+
 metadata:
   name: food-our
+
 spec:
   type: NodePort
+
   selector:
     app: food-our
+
   ports:
-    - port: 80
+    - name: http
+      port: 80
       targetPort: 80
       nodePort: 30081

@@ -1,14 +1,45 @@
-.git
+
+# Git
+.git/
 .gitignore
+
+# Documentation
 README.md
+README.md:Zone.Identifier
+
+# DevOps configuration
+Jenkinsfile
+Dockerfile
+.dockerignore
+k8s/
+scripts/
+.config-backup/
+.prev_image
+
+# AI modules
 ai/
 dashboard/
 security/
-reports/
-.venv/
-.env
-.env.example
-__pycache__/
 requirements.txt
-scripts/setup_ai.sh
-scripts/start_ai.sh
+
+# Python environment
+.venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+
+# Environment variables
+.env
+.env.*
+**/.env
+**/.env.*
+
+# Generated reports
+reports/
+*.log
+
+# Operating system files
+.DS_Store
+**/.DS_Store
+Thumbs.db
+**/*:Zone.Identifier
