@@ -143,43 +143,64 @@ pipeline {
         }
 
         stage('Testing Environment') {
-            steps {
-                sh '''
-                    set -eu
+    steps {
+        sh '''
+            set -eu
 
-                    TEST_CONTAINER="${CONTAINER_NAME}-test-${BUILD_NUMBER}"
+            mkdir -p reports
 
-                    cleanup() {
-                        docker rm -f "$TEST_CONTAINER" \
-                            >/dev/null 2>&1 || true
-                    }
+            TEST_CONTAINER="${CONTAINER_NAME}-test-${BUILD_NUMBER}"
 
-                    trap cleanup EXIT
+            cleanup() {
+                docker logs "$TEST_CONTAINER" \
+                    > reports/testing-container.log 2>&1 || true
 
-                    echo "[TEST] Starting test container"
-
-                    docker run -d \
-                        --name "$TEST_CONTAINER" \
-                        -p "127.0.0.1:${TEST_PORT}:80" \
-                        "${IMAGE_NAME}:${BUILD_NUMBER}"
-
-                    echo "[TEST] Checking HTTP response"
-
-                    curl \
-                        --retry 10 \
-                        --retry-connrefused \
-                        --retry-delay 2 \
-                        --max-time 5 \
-                        --fail \
-                        --silent \
-                        --show-error \
-                        --output /dev/null \
-                        "http://localhost:${TEST_PORT}/"
-
-                    echo "[TEST] Testing passed"
-                '''
+                docker rm -f "$TEST_CONTAINER" \
+                    >/dev/null 2>&1 || true
             }
-        }
+
+            trap cleanup EXIT
+
+            echo "[TEST] Starting test container"
+
+            docker run -d \
+                --name "$TEST_CONTAINER" \
+                -p "127.0.0.1:${TEST_PORT}:80" \
+                "${IMAGE_NAME}:${BUILD_NUMBER}"
+
+            echo "[TEST] Waiting for Nginx..."
+
+            for i in $(seq 1 15); do
+
+                if curl \
+                    --connect-timeout 2 \
+                    --max-time 5 \
+                    --fail \
+                    --silent \
+                    --show-error \
+                    --output /dev/null \
+                    "http://127.0.0.1:${TEST_PORT}/"; then
+
+                    echo "[TEST] HTTP check passed"
+                    exit 0
+                fi
+
+                echo "[TEST] Attempt $i/15 failed"
+
+                sleep 2
+            done
+
+            echo "[ERROR] Testing environment failed"
+
+            docker ps -a \
+                --filter "name=$TEST_CONTAINER"
+
+            docker logs "$TEST_CONTAINER" || true
+
+            exit 1
+        '''
+    }
+}
 
         stage('Backup Current Deployment') {
             steps {
@@ -311,7 +332,6 @@ pipeline {
                     fi
                 '''
 
-                // Rollback only if deployment started
                 if (env.DEPLOY_STARTED == 'true') {
 
                     echo '[ROLLBACK] Restoring previous version'
@@ -367,46 +387,45 @@ pipeline {
 
                 // AI incident analysis
                 catchError(
-                    buildResult: 'FAILURE',
-                    stageResult: 'FAILURE'
-                ) {
+    buildResult: 'FAILURE',
+    stageResult: 'FAILURE'
+) {
+    timeout(time: 3, unit: 'MINUTES') {
+        sh '''
+            echo "[AI] Analyzing pipeline failure"
 
-                    timeout(time: 3, unit: 'MINUTES') {
+            mkdir -p reports
 
-                        def consoleLog =
-                            currentBuild.rawBuild
-                                .getLog(150)
-                                .join('\n')
+            if [ -x .venv/bin/python ]; then
 
-                        writeFile(
-                            file: 'reports/jenkins-failure.log',
-                            text: consoleLog
-                        )
+                {
+                    echo "Jenkins Build: ${BUILD_NUMBER}"
+                    echo "Pipeline status: FAILURE"
+                    echo "Deploy started: ${DEPLOY_STARTED}"
 
-                        sh '''
-                            echo "[AI] Analyzing pipeline failure"
+                    for LOG in \
+                        reports/testing-container.log \
+                        reports/docker-failure.log \
+                        reports/pipeline-failure.log
+                    do
+                        if [ -f "$LOG" ]; then
+                            echo "===== $LOG ====="
+                            tail -n 100 "$LOG"
+                        fi
+                    done
 
-                            if [ -x .venv/bin/python ]; then
+                } | .venv/bin/python \
+                    -m ai.log_analyzer \
+                    > reports/ai-incident.txt
 
-                                {
-                                    cat reports/jenkins-failure.log
+                cat reports/ai-incident.txt
 
-                                    if [ -f reports/docker-failure.log ]; then
-                                        cat reports/docker-failure.log
-                                    fi
-
-                                } | .venv/bin/python \
-                                    -m ai.log_analyzer \
-                                    > reports/ai-incident.txt
-
-                                cat reports/ai-incident.txt
-
-                            else
-                                echo "[AI] Python environment unavailable"
-                            fi
-                        '''
-                    }
-                }
+            else
+                echo "[AI] Python environment unavailable"
+            fi
+        '''
+    }
+}
             }
         }
 
