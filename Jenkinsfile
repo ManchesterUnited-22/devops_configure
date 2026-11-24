@@ -10,12 +10,22 @@ pipeline {
     }
 
     parameters {
-        booleanParam(
-            name: 'RUN_AI_REVIEW',
-            defaultValue: false,
-            description: 'Run optional AI Code Review'
-        )
-    }
+    booleanParam(
+        name: 'RUN_AI_REVIEW',
+        defaultValue: false,
+        description: 'Run optional AI Code Review'
+    )
+
+    choice(
+        name: 'FAILURE_TEST',
+        choices: [
+            'NONE',
+            'BEFORE_DEPLOY',
+            'AFTER_DEPLOY'
+        ],
+        description: 'Controlled pipeline failure simulation'
+    )
+}
 
     environment {
         IMAGE_NAME = 'food-our-web'
@@ -40,7 +50,14 @@ pipeline {
 
                 sh '''
                     rm -f .prev_image
-                    mkdir -p reports
+
+            mkdir -p reports
+
+        rm -f reports/pipeline-failure.log \
+              reports/testing-container.log \
+              reports/docker-failure.log \
+              reports/ai-incident.txt \
+              reports/ai-code-review.txt
 
                     git log -1 --oneline
                 '''
@@ -201,6 +218,26 @@ pipeline {
         '''
     }
 }
+        stage('Simulate Pre-Deploy Failure') {
+    when {
+        expression {
+            return params.FAILURE_TEST == 'BEFORE_DEPLOY'
+        }
+    }
+
+    steps {
+        sh '''
+            mkdir -p reports
+
+            echo "[ERROR] Simulated pre-deployment failure" \
+                > reports/pipeline-failure.log
+
+            echo "[TEST] Production must remain unchanged"
+
+            exit 1
+        '''
+    }
+}
 
         stage('Backup Current Deployment') {
             steps {
@@ -246,6 +283,26 @@ pipeline {
                 '''
             }
         }
+        stage('Simulate Post-Deploy Failure') {
+    when {
+        expression {
+            return params.FAILURE_TEST == 'AFTER_DEPLOY'
+        }
+    }
+
+    steps {
+        sh '''
+            mkdir -p reports
+
+            echo "[ERROR] Simulated post-deployment failure" \
+                > reports/pipeline-failure.log
+
+            echo "[TEST] Automatic rollback must restore previous image"
+
+            exit 1
+        '''
+    }
+}
 
         stage('Verify Deployment') {
             steps {
