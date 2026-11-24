@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DevOps AI Center</title>
+
+    <link rel="stylesheet"
+          href="/static/style.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">
+            DEVOPS<span> AI</span>
+        </div>
+
+        <p class="subtitle">
+            Intelligent Operations Center
+        </p>
+
+        <nav>
+            <a href="#overview">Overview</a>
+            <a href="#containers">Docker</a>
+            <a href="#kubernetes">Kubernetes</a>
+            <a href="#logs">Log Analyzer</a>
+            <a href="#review">Code Review</a>
+            <a href="#assistant">AI Assistant</a>
+        </nav>
+
+        <footer>FOOD&OUR Infrastructure</footer>
+    </aside>
+
+    <main>
+
+        <header>
+            <div>
+                <small>INFRASTRUCTURE MANAGEMENT</small>
+                <h1>DevOps AI Center</h1>
+            </div>
+
+            <button onclick="refreshStatus()">
+                Refresh
+            </button>
+        </header>
+
+        <section id="overview">
+
+            <h2>System Overview</h2>
+
+            <div class="status-grid">
+
+                <div class="card">
+                    <p>Jenkins CI/CD</p>
+                    <h3 id="jenkinsStatus">Checking...</h3>
+                </div>
+
+                <div class="card">
+                    <p>Docker Engine</p>
+                    <h3 id="dockerStatus">Checking...</h3>
+                </div>
+
+                <div class="card">
+                    <p>FOOD&OUR Website</p>
+                    <h3 id="websiteStatus">Checking...</h3>
+                </div>
+
+                <div class="card">
+                    <p>Ollama AI</p>
+                    <h3 id="aiStatus">Checking...</h3>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="panel" id="containers">
+            <div class="panel-header">
+                <h2>Docker Containers</h2>
+
+                <button onclick="loadContainers()">
+                    Load Containers
+                </button>
+            </div>
+
+            <pre id="containerResult">Waiting...</pre>
+        </section>
+
+        <section class="panel" id="kubernetes">
+
+            <div class="panel-header">
+                <h2>Kubernetes Cluster</h2>
+
+                <button onclick="loadKubernetes()">
+                    Check Cluster
+                </button>
+            </div>
+
+            <pre id="kubernetesResult">Waiting...</pre>
+
+        </section>
+
+        <section class="panel" id="logs">
+
+            <div class="panel-header">
+                <h2>AI Log Analyzer</h2>
+
+                <button onclick="loadLogs()">
+                    Get Docker Logs
+                </button>
+            </div>
+
+            <textarea id="logInput"
+                placeholder="Nhập hoặc tải log hệ thống...">
+            </textarea>
+
+            <button onclick="analyzeLogs()">
+                Analyze With AI
+            </button>
+
+            <pre id="logResult">
+                Waiting for analysis...
+            </pre>
+
+        </section>
+
+        <section class="panel" id="review">
+
+            <div class="panel-header">
+                <h2>AI Code Review</h2>
+
+                <button onclick="reviewCode()">
+                    Start Review
+                </button>
+            </div>
+
+            <pre id="reviewResult">
+                Waiting for code review...
+            </pre>
+
+        </section>
+
+        <section class="panel" id="assistant">
+
+            <h2>DevOps AI Assistant</h2>
+
+            <textarea id="chatInput"
+                placeholder="Hỏi AI về Docker, Jenkins, Kubernetes...">
+            </textarea>
+
+            <button onclick="sendMessage()">
+                Send Message
+            </button>
+
+            <pre id="chatResult">
+                AI response will appear here.
+            </pre>
+
+        </section>
+
+    </main>
+
+    <script src="/static/app.js"></script>
+
+</body>
+</html>

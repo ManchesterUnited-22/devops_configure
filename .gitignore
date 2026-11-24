@@ -1,2 +1,11 @@
 .config-backup/
 .prev_image
+# AI Environment
+.venv/
+.env
+__pycache__/
+*.pyc
+
+# Generated Reports
+reports/*
+!reports/.gitkeep
